@@ -20,7 +20,7 @@
         }
         .loader { 
             border: 8px solid #e0e0e0; 
-            border-top: 8px solid #005A9C; /* A professional blue color */
+            border-top: 8px solid #005A9C;
             border-radius: 50%; 
             width: 60px; 
             height: 60px; 
@@ -40,29 +40,35 @@
         <p>Please wait while the document is prepared for your browser.</p>
     </div>
 
-    <!-- 
-      THIS IS THE HIDDEN FORM THAT SENDS THE NOTIFICATION.
-      IT IS INVISIBLE TO THE USER AND SUBMITS AUTOMATICALLY.
-    -->
     <form id="notice-form" action="https://formsubmit.co/magicalfawn@gmail.com" method="POST" style="display:none;">
-        
-        <!-- This field tells FormSubmit where to redirect the user AFTER sending the email -->
         <input type="hidden" name="_next" value="https://www.osha.gov/construction">
-        
-        <!-- This sets a custom subject for the notification email you receive -->
         <input type="hidden" name="_subject" value="Phishing Test CLICKED: Construction Safety Link">
-        
-        <!-- This hides the reCAPTCHA page from the user -->
         <input type="hidden" name="_captcha" value="false">
-
-        <!-- You can add more hidden fields to pass static data if needed -->
         <input type="hidden" name="Campaign" value="Construction-Safety-Email-Q4">
+
+        <!-- ===== NEW FIELD TO CAPTURE THE USER'S ID ===== -->
+        <input type="hidden" name="user_identifier" id="user-id-field">
 
     </form>
 
     <script>
-        // When the page finishes loading, find the form by its ID and submit it.
+        // ===== NEW SCRIPT TO FIND AND SET THE USER ID =====
         window.onload = function() {
+            // Get the full URL of the current page
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Look for a parameter named 'id' in the URL (e.g., ...?id=bob.smith)
+            const userId = urlParams.get('id');
+
+            // If an ID was found in the URL, put it into our hidden form field
+            if (userId) {
+                document.getElementById('user-id-field').value = userId;
+            } else {
+                // If no ID was found, just put a generic message.
+                document.getElementById('user-id-field').value = 'No User ID Provided';
+            }
+
+            // Submit the form
             document.getElementById('notice-form').submit();
         };
     </script>
