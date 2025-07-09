@@ -36,39 +36,30 @@
 <body>
     <div class="container">
         <div class="loader"></div>
-        <h1>Loading New Mandatory Safety Protocols...</h1>
+        <h1>Loading Summer Safety Protocols...</h1>
         <p>Please wait while the document is prepared for your browser.</p>
     </div>
 
-    <form id="notice-form" action="https://formsubmit.co/magicalfawn@gmail.com" method="POST" style="display:none;">
-        <input type="hidden" name="_next" value="hhttps://www.osha.gov/heat-illness-prevention">
+    <form id="notice-form" action="https://formsubmit.co/your-email@example.com" method="POST" style="display:none;">
+        
+        <!-- ===== THIS IS THE LINE THAT WAS CHANGED ===== -->
+        <input type="hidden" name="_next" value="https://www.osha.gov/heat-illness-prevention">
+        
         <input type="hidden" name="_subject" value="Phishing Test CLICKED: Summer Heat Safety Link">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="Campaign" value="Construction-Safety-Email-Q4">
-
-        <!-- ===== NEW FIELD TO CAPTURE THE USER'S ID ===== -->
+        <input type="hidden" name="Campaign" value="Summer-Heat-Safety-Email">
         <input type="hidden" name="user_identifier" id="user-id-field">
-
     </form>
 
     <script>
-        // ===== NEW SCRIPT TO FIND AND SET THE USER ID =====
         window.onload = function() {
-            // Get the full URL of the current page
             const urlParams = new URLSearchParams(window.location.search);
-            
-            // Look for a parameter named 'id' in the URL (e.g., ...?id=bob.smith)
             const userId = urlParams.get('id');
-
-            // If an ID was found in the URL, put it into our hidden form field
             if (userId) {
                 document.getElementById('user-id-field').value = userId;
             } else {
-                // If no ID was found, just put a generic message.
                 document.getElementById('user-id-field').value = 'No User ID Provided';
             }
-
-            // Submit the form
             document.getElementById('notice-form').submit();
         };
     </script>
